@@ -1,11 +1,13 @@
 <?php
 
-namespace RV_Plugins\geoTargeting;
+namespace RV_Plugins\geoTargeting\rvMaxMindGeoIP2;
 
 use MaxMind\Db\Reader;
 
-class rvMaxMindGeoIP2
+class MaxMindGeoIP2
 {
+    const DEFAULT_MMDB = MAX_PATH.'/var/plugins/rvMaxMindGeoIP2/GeoLite2-City.mmdb';
+
     const GEO = [
         'version' => '2',
         'country' => '',
@@ -222,11 +224,13 @@ class rvMaxMindGeoIP2
      */
     private static function getReaders(): \Generator
     {
-        $aConf = $GLOBALS['_MAX']['CONF'];
+        $mmdbPaths = $GLOBALS['_MAX']['CONF']['rvMaxMindGeoIP2']['mmdb_paths'] ?? self::DEFAULT_MMDB;
 
-        foreach (preg_split('/\s+/', $aConf['rvMaxMindGeoIP2']['mmdb_paths'] ?? '') as $db) {
-            if (!empty($db)) {
-                yield new \MaxMind\Db\Reader($db);
+        foreach (preg_split('/\s+/', $mmdbPaths, -1, PREG_SPLIT_NO_EMPTY) as $mmdb) {
+            try {
+                yield new Reader($mmdb);
+            } catch (\Throwable $e) {
+                // Do nothing!
             }
         }
     }

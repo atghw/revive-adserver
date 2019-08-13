@@ -11,6 +11,11 @@
 */
 
 require_once __DIR__.'/rvMaxMindGeoIP2.delivery.php';
+require_once __DIR__.'/lib/MaxMindGeoLite2Downloader.php';
+
+
+use RV_Plugins\geoTargeting\rvMaxMindGeoIP2\MaxMindGeoIP2;
+use RV_Plugins\geoTargeting\rvMaxMindGeoIP2\MaxMindGeoLite2Downloader;
 
 /**
  * Class to get GeoTargeting information from MaxMind GeoIP2 or GeoLite2 databases.
@@ -35,6 +40,14 @@ class Plugins_GeoTargeting_rvMaxMindGeoIP2_RvMaxMindGeoIP2 extends OX_Component 
      */
     function getCapabilities()
     {
-        return \RV_Plugins\geoTargeting\rvMaxMindGeoIP2::getCapabilities();
+        return MaxMindGeoIP2::getCapabilities();
+    }
+
+    function onEnable()
+    {
+        $downloader = new MaxMindGeoLite2Downloader();
+        $downloader->updateGeoLiteDatabase();
+
+        return true;
     }
 }

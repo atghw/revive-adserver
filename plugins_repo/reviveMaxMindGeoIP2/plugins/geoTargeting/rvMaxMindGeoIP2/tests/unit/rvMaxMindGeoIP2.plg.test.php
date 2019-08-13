@@ -12,6 +12,8 @@
 
 require_once __DIR__ . '/../../lib/MaxMindGeoIP2.php';
 
+use RV_Plugins\geoTargeting\rvMaxMindGeoIP2\MaxMindGeoIP2;
+
 /**
  * A class for testing the RvMaxMindGeoIP2 delivery component.
  *
@@ -31,13 +33,13 @@ class Delivery_TestOfRvMaxMindGeoIP2 extends UnitTestCase
     {
         $variables = 27;
 
-        $string = \RV_Plugins\geoTargeting\rvMaxMindGeoIP2::packCookie();
-        $aResult = \RV_Plugins\geoTargeting\rvMaxMindGeoIP2::unpackCookie($string);
+        $string = MaxMindGeoIP2::packCookie();
+        $aResult = MaxMindGeoIP2::unpackCookie($string);
         $this->assertIsA($aResult, 'array');
         $this->assertEqual(count($aResult), $variables);
 
         $string = "a|b|c";
-        $geoinfo = \RV_Plugins\geoTargeting\rvMaxMindGeoIP2::unpackCookie($string);
+        $geoinfo = MaxMindGeoIP2::unpackCookie($string);
         $this->assertFalse($geoinfo);
 
         $geodata = [
@@ -45,8 +47,8 @@ class Delivery_TestOfRvMaxMindGeoIP2 extends UnitTestCase
             'user_type' => 'foo',
         ];
 
-        $string = \RV_Plugins\geoTargeting\rvMaxMindGeoIP2::packCookie($geodata);
-        $aResult = \RV_Plugins\geoTargeting\rvMaxMindGeoIP2::unpackCookie($string);
+        $string = MaxMindGeoIP2::packCookie($geodata);
+        $aResult = MaxMindGeoIP2::unpackCookie($string);
         $this->assertIsA($aResult, 'array');
 
         array_walk($geodata, function ($v, $k) use ($aResult) {
@@ -75,7 +77,7 @@ class Delivery_TestOfRvMaxMindGeoIP2 extends UnitTestCase
 
         foreach ($data as $ip => $aExpected) {
             $GLOBALS['_MAX']['GEO_IP'] = $ip;
-            $aResult = \RV_Plugins\geoTargeting\rvMaxMindGeoIP2::getGeoInfo(false);
+            $aResult = MaxMindGeoIP2::getGeoInfo(false);
 
             $this->assertEqual($aResult, $aExpected);
         }
@@ -125,7 +127,7 @@ class Delivery_TestOfRvMaxMindGeoIP2 extends UnitTestCase
 
         foreach ($data as $ip => $aExpected) {
             $GLOBALS['_MAX']['GEO_IP'] = $ip;
-            $aResult = \RV_Plugins\geoTargeting\rvMaxMindGeoIP2::getGeoInfo(false);
+            $aResult = MaxMindGeoIP2::getGeoInfo(false);
 
             $this->assertEqual($aResult, $aExpected);
         }
@@ -152,7 +154,7 @@ class Delivery_TestOfRvMaxMindGeoIP2 extends UnitTestCase
 
         foreach ($data as $ip => $aExpected) {
             $GLOBALS['_MAX']['GEO_IP'] = $ip;
-            $aResult = \RV_Plugins\geoTargeting\rvMaxMindGeoIP2::getGeoInfo(false);
+            $aResult = MaxMindGeoIP2::getGeoInfo(false);
 
             $this->assertEqual($aResult, $aExpected);
         }
@@ -182,7 +184,7 @@ class Delivery_TestOfRvMaxMindGeoIP2 extends UnitTestCase
 
         foreach ($data as $ip => $aExpected) {
             $GLOBALS['_MAX']['GEO_IP'] = $ip;
-            $aResult = \RV_Plugins\geoTargeting\rvMaxMindGeoIP2::getGeoInfo(false);
+            $aResult = MaxMindGeoIP2::getGeoInfo(false);
 
             $this->assertEqual($aResult, $aExpected);
         }
@@ -205,7 +207,7 @@ class Delivery_TestOfRvMaxMindGeoIP2 extends UnitTestCase
 
         foreach ($data as $ip => $aExpected) {
             $GLOBALS['_MAX']['GEO_IP'] = $ip;
-            $aResult = \RV_Plugins\geoTargeting\rvMaxMindGeoIP2::getGeoInfo(false);
+            $aResult = MaxMindGeoIP2::getGeoInfo(false);
 
             $this->assertEqual($aResult, $aExpected);
         }
@@ -226,7 +228,7 @@ class Delivery_TestOfRvMaxMindGeoIP2 extends UnitTestCase
 
         foreach ($data as $ip => $aExpected) {
             $GLOBALS['_MAX']['GEO_IP'] = $ip;
-            $aResult = \RV_Plugins\geoTargeting\rvMaxMindGeoIP2::getGeoInfo(false);
+            $aResult = MaxMindGeoIP2::getGeoInfo(false);
 
             $this->assertEqual($aResult, $aExpected);
         }
@@ -251,7 +253,7 @@ class Delivery_TestOfRvMaxMindGeoIP2 extends UnitTestCase
 
         foreach ($data as $ip => $aExpected) {
             $GLOBALS['_MAX']['GEO_IP'] = $ip;
-            $aResult = \RV_Plugins\geoTargeting\rvMaxMindGeoIP2::getGeoInfo(false);
+            $aResult = MaxMindGeoIP2::getGeoInfo(false);
 
             $this->assertEqual($aResult, $aExpected);
         }
@@ -270,7 +272,7 @@ class Delivery_TestOfRvMaxMindGeoIP2 extends UnitTestCase
 
         foreach ($data as $ip => $aExpected) {
             $GLOBALS['_MAX']['GEO_IP'] = $ip;
-            $aResult = \RV_Plugins\geoTargeting\rvMaxMindGeoIP2::getGeoInfo(false);
+            $aResult = MaxMindGeoIP2::getGeoInfo(false);
 
             $this->assertEqual($aResult, $aExpected);
         }
@@ -302,7 +304,7 @@ class Delivery_TestOfRvMaxMindGeoIP2 extends UnitTestCase
 
         foreach ($data as $ip => $aExpected) {
             $GLOBALS['_MAX']['GEO_IP'] = $ip;
-            $aResult = \RV_Plugins\geoTargeting\rvMaxMindGeoIP2::getGeoInfo(false);
+            $aResult = MaxMindGeoIP2::getGeoInfo(false);
 
             $this->assertEqual($aResult, $aExpected);
         }
