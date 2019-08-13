@@ -25,7 +25,9 @@ class OX_Upgrade_InstallPlugin_Controller
 
     private static $DEPRECATED_PLUGINS = array(
         'openXMarket',
-        'openXWorkflow'
+        'openXWorkflow',
+        'openXMaxMindGeoIP',
+        'openXMaxMindModGeoIP',
     );
 
     /**
